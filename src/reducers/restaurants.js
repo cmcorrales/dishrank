@@ -22,9 +22,16 @@ export function restaurants(state = [], action) {
     switch (action.type) {
         case 'RESTAURANTS_FETCH_DATA_SUCCESS':
             return action.restaurants;
-        case 'SELECT_RESTAURANT':
-            return {...state, selectedRestaurant: action.payload};
         default:
             return state;
     }
+}
+
+export function selectedRestaurant(state=[], action) {
+  switch (action.type) {
+    case 'SELECT_RESTAURANT':
+        return {...state, selectedRestaurant: action.payload};
+    default:
+        return state;
+  }
 }

@@ -21,6 +21,13 @@ export function restaurantsFetchDataSuccess(restaurants) {
     };
 }
 
+export function selectedRestaurant(restaurant) {
+    return {
+        type: 'SELECT_RESTAURANT',
+        selectedRestaurant
+    };
+}
+
 export function restaurantsFetchData(url) {
     return (dispatch) => {
         dispatch(restaurantsAreLoading(true));

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 //Components:
 import App from './App';
-import Login from './components/Login';
+// import Login from './components/Login';
 import RestaurantList from './components/RestaurantList';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -18,9 +18,10 @@ ReactDOM.render(
     <Router>
       <React.Fragment>
         <Route exact path="/" component={App} />
-        <Route path="/login" component={Login} />
+        {/* <Route path="/login" component={Login} /> */}
         <Route path="/restaurantlist" component={RestaurantList} />
       </React.Fragment>
     </Router>
-  </Provider>
-  , document.getElementById('root'));
+  </Provider>,
+  document.getElementById('root')
+);

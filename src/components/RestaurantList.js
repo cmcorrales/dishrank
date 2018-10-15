@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Card } from 'semantic-ui-react';
 import { restaurantsFetchData } from '../actions/restaurants';
-import { Card, Image } from 'semantic-ui-react'
+import Restaurant from './Restaurant'
 
 class RestaurantList extends Component {
   componentDidMount() {
@@ -17,18 +18,15 @@ class RestaurantList extends Component {
           return <p>Loading…</p>;
       }
 
+      const renderedRestaurants = this.props.restaurants.map((restaurant) => {
+        return <Restaurant key={restaurant.id} restaurant={restaurant}/>
+      })
+
       return (
           <div>
-              {this.props.restaurants.map((restaurant) => (
-                <Card.Group>
-                <Card key={restaurant.id}>
-                  <Image src='https://images.pexels.com/photos/541216/pexels-photo-541216.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' />
-                  <Card.Content>
-                    <Card.Header>{restaurant.name}</Card.Header>
-                  </Card.Content>
-                </Card>
-                </Card.Group>
-              ))}
+            <Card.Group>
+              {renderedRestaurants}
+            </Card.Group>
           </div>
       );
   }
@@ -42,9 +40,10 @@ const mapStateToProps = (state) => {
   };
 };
 
+
 const mapDispatchToProps = (dispatch) => {
   return {
-      fetchData: (url) => dispatch(restaurantsFetchData(url))
+      fetchData: (url) => dispatch(restaurantsFetchData(url)),
   };
 };
 

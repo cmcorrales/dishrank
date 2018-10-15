@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Login from './components/Login.js';
-import RestaurantList from './components/RestaurantList.js';
+// import Login from './components/Login';
+import RestaurantList from './components/RestaurantList';
+import RestaurantSearch from './components/RestaurantSearch'
 import './App.css';
-import { connect } from 'react-redux';
 
 class App extends Component {
 
@@ -10,18 +10,12 @@ class App extends Component {
     console.log(this.props)
     return (
       <div className="App">
-        <Login />
+        <RestaurantSearch />
+        {/* <Login /> */}
         <RestaurantList />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    users: state.username,
-    password: state.password
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

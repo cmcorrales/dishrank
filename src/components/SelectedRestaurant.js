@@ -11,6 +11,7 @@ class SelectedRestaurant extends React.Component {
     dishes: [],
     rating: '',
     dishId: '',
+    dishName: '',
     open: false,
   }
 
@@ -25,30 +26,31 @@ class SelectedRestaurant extends React.Component {
     })
   }
 
-  handleRate = (e, {rating}) => {
+  handleRate = (e, rating, dishId) => {
     this.setState({
-      rating: rating
+      rating: rating,
+      dishId: dishId,
     })
+    this.props.onAddReview(rating, dishId)
   }
 
-  getDish = (dishId) => {
+  updateDishName = (dishName) => {
     this.setState({
-      dishId: dishId
+      dishName: dishName
     })
   }
 
   displayDishes = (dishes) => {
     const { open, dimmer } = this.state
     return dishes.map(dish => {
-      console.log("dish:", dish.name)
       return (
         <div>
             <Segment color='red' raised>{dish.name}<br/>
-              <Rating icon='star' defaultRating={0} maxRating={4} size='massive' onRate={this.handleRate} onClick={() => this.getDish(this.props.review)}/><br/>
-              <Button onClick={this.show('blurring')} color='red'>give feedback </Button><Button color='blue' onClick={this.show('blurring')}>view feedback </Button>
+              <Rating icon='star' defaultRating={0} maxRating={4} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /><br/>
+              <Button onClick={this.show('blurring')} color='red'>give feedback</Button><Button color='blue' onClick={this.show('blurring')}>view feedback</Button>
             </Segment>
             <Modal dimmer={dimmer} open={open} onClose={this.close}>
-              <GiveFeedbackModal />
+              <GiveFeedbackModal dishName={this.state.dishName} />
             </Modal>
         </div>
       )
@@ -68,7 +70,6 @@ class SelectedRestaurant extends React.Component {
   }
 
   render() {
-    console.log('dishes:',this.state.dishes)
     // console.log(this.props.selectedRestaurant.selectedRestaurant.menus[0].dishes.map(dish => dish.name))
     return (
       <React.Fragment>
@@ -85,17 +86,13 @@ class SelectedRestaurant extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selectedRestaurant: state.selectedRestaurant,
-    review: {
-      rating: state.rating,
-      dish_id: state.dishId
-    }
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddReview: ( review ) => {
-      dispatch(addReview( review ));
+    onAddReview: (rating, dishId) => {
+      dispatch(addReview(rating, dishId));
     }
   };
 };

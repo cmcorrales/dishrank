@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Mali:700');
 @import url('https://fonts.googleapis.com/css?family=Londrina+Outline');
 
 .App {
@@ -72,7 +71,6 @@ body, html {
 }
 
 .heading {
-  /* font-family: 'Mali', cursive; */
   font-family: 'Londrina Outline', cursive;
   font-size: 70px;
   padding-bottom: 30px;

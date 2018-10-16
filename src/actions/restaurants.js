@@ -46,3 +46,40 @@ export function restaurantsFetchData(url) {
             .catch(() => dispatch(restaurantsHaveError(true)));
     };
 }
+
+export const addReview = ({ rating, dishId }) => {
+  return dispatch => {
+    dispatch(addReviewStarted());
+
+    axios
+      .post(`http://localhost:3000/api/v1/reviews/`, {
+        rating,
+        dishId,
+        completed: false
+      })
+      .then(res => {
+        dispatch(addReviewSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(addReviewFailure(err.message));
+      });
+  };
+};
+
+const addReviewSuccess = review => ({
+  type: 'ADD_REVIEW_SUCCESS',
+  payload: {
+    ...review
+  }
+});
+
+const addReviewStarted = () => ({
+  type: 'ADD_REVIEW_STARTED'
+});
+
+const addReviewFailure = error => ({
+  type: 'ADD_REVIEW_FAILURE',
+  payload: {
+    error
+  }
+});

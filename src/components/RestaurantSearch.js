@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Search } from 'semantic-ui-react';
 
 class RestaurantSearch extends Component {
   state = {
     searchTerm: '',
-    currentlyDisplayed: this.props.restaurants
+    currentlyDisplayed: []
   }
 
   handleInputChange = (event) => {
@@ -18,7 +19,10 @@ class RestaurantSearch extends Component {
   render() {
     return(
       <React.Fragment>
+      <Search className="hero-text">
         <input type="text" value={this.props.searchTerm} onChange={this.handleInputChange} placeholder="search"/>
+      </Search>
+      {/* <Restaurant currentlyDisplayed={this.state.currentlyDisplayed}/> */}
       </React.Fragment>
     )
   }

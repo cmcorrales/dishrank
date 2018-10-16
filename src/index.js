@@ -20,7 +20,6 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route exact path="/" component={App} />
-        <Route path="/restaurantlist" component={RestaurantList} />
         {/* same as: <Route path="/restaurantlist" render={renderProps => <RestaurantList {...renderProps} />} />  */}
         <Route path="/selectedrestaurant" component={SelectedRestaurant} />
       </Switch>

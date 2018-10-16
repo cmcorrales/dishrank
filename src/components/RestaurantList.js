@@ -32,7 +32,7 @@ class RestaurantList extends Component {
 
       return (
           <div>
-              <Card.Group>
+              <Card.Group className='restaurantCard'>
                 {renderedRestaurants}
               </Card.Group>
           </div>

@@ -35,3 +35,34 @@ export function selectedRestaurant(state=[], action) {
         return state;
   }
 }
+
+const initialState = {
+  loading: false,
+  reviews: [],
+  error: null
+};
+
+export function reviewsReducer(state = initialState, action) {
+  switch (action.type) {
+    case 'ADD_REVIEW_STARTED':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'ADD_REVIEW_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        reviews: [...state.reviews, action.payload]
+      };
+    case 'ADD_REVIEW_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
+      };
+    default:
+      return state;
+  }
+}

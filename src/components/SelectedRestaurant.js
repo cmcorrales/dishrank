@@ -15,7 +15,7 @@ class SelectedRestaurant extends React.Component {
     open: false,
   }
 
-  show = dimmer => () => this.setState({ dimmer, open: true })
+  show = (dimmer, dishName) => () => this.setState({ dimmer, open: true, dishName: dishName })
   close = () => this.setState({ open: false })
 
   componentDidMount() {
@@ -47,7 +47,7 @@ class SelectedRestaurant extends React.Component {
         <div>
             <Segment color='red' raised>{dish.name}<br/>
               <Rating icon='star' defaultRating={0} maxRating={4} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /><br/>
-              <Button onClick={this.show('blurring')} color='red'>give feedback</Button><Button color='blue' onClick={this.show('blurring')}>view feedback</Button>
+              <Button onClick={this.show('blurring', dish.name)} color='red'>give feedback</Button><Button color='blue' onClick={this.show('blurring')}>view feedback</Button>
             </Segment>
             <Modal dimmer={dimmer} open={open} onClose={this.close}>
               <GiveFeedbackModal dishName={this.state.dishName} />

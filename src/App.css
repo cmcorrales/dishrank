@@ -76,3 +76,8 @@ body, html {
   padding-bottom: 30px;
   color: black;
 }
+
+.likert-text {
+  width: 100%;
+  text-align: center;
+}

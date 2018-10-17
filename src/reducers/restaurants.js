@@ -38,11 +38,18 @@ export function selectedRestaurant(state=[], action) {
 
 const initialState = {
   loading: false,
-  reviews: [],
-  error: null
+  dish_id: '',
+  error: null,
+  more_salty: '',
+  less_salty: '',
+  more_spicy: '',
+  less_spicy: '',
+  more_sweet: '',
+  less_sweet: '',
 };
 
 export function reviewsReducer(state = initialState, action) {
+  console.log(action)
   switch (action.type) {
     case 'ADD_REVIEW_STARTED':
       return {

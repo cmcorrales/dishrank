@@ -47,14 +47,21 @@ export function restaurantsFetchData(url) {
     };
 }
 
-export const addReview = (rating, dish_id) => {
+export const addReview = (rating, dish_id, more_salty, less_salty, more_spicy, less_spicy, more_sweet, less_sweet) => {
   return dispatch => {
+    console.log( "addReview action called")
     dispatch(addReviewStarted());
 
     axios
       .post(`http://localhost:3000/api/v1/reviews/`, {
         rating,
         dish_id,
+        more_salty,
+        less_salty,
+        more_spicy,
+        less_spicy,
+        more_sweet,
+        less_sweet,
         completed: false
       })
       .then(res => {

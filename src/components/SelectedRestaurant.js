@@ -4,6 +4,7 @@ import { Segment, Rating, Button, Icon, Label, Modal } from 'semantic-ui-react';
 import { addReview } from '../actions/restaurants';
 import NavigationBar from './NavigationBar'
 import GiveFeedbackModal from './GiveFeedbackModal';
+import ViewFeedbackModal from './ViewFeedbackModal';
 import axios from 'axios';
 
 class SelectedRestaurant extends React.Component {
@@ -12,7 +13,6 @@ class SelectedRestaurant extends React.Component {
     rating: '',
     dishId: '',
     dishName: '',
-    open: false,
   }
 
   show = (dimmer, dishName) => () => this.setState({ dimmer, open: true, dishName: dishName })
@@ -46,11 +46,11 @@ class SelectedRestaurant extends React.Component {
       return (
         <div>
             <Segment color='red' raised>{dish.name}<br/>
-              <Rating icon='star' defaultRating={0} maxRating={4} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /><br/>
+              <Rating icon='star' defaultRating={0} maxRating={5} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /><br/>
               <Button onClick={this.show('blurring', dish.name)} color='red'>give feedback</Button><Button color='blue' onClick={this.show('blurring')}>view feedback</Button>
             </Segment>
             <Modal dimmer={dimmer} open={open} onClose={this.close}>
-              <GiveFeedbackModal dishName={this.state.dishName} />
+              <GiveFeedbackModal dishName={this.state.dishName} dishId={dish.id} onClose={this.close}/>
             </Modal>
         </div>
       )
@@ -70,7 +70,6 @@ class SelectedRestaurant extends React.Component {
   }
 
   render() {
-    // console.log(this.props.selectedRestaurant.selectedRestaurant.menus[0].dishes.map(dish => dish.name))
     return (
       <React.Fragment>
         <NavigationBar />

@@ -14,15 +14,11 @@ export default class MenuExampleSecondaryPointing extends Component {
         <Menu pointing secondary color='red'>
           <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
           <Menu.Item
-            name='reviews'
-            active={activeItem === 'reviews'}
+            name='add restaurant'
+            active={activeItem === 'add restaurant'}
             onClick={this.handleItemClick}
           />
-          <Menu.Item
-            name='friends'
-            active={activeItem === 'friends'}
-            onClick={this.handleItemClick}
-          />
+
           <Menu.Menu position='right'>
             <Menu.Item
               name='login'

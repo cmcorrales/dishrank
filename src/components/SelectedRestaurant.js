@@ -40,12 +40,20 @@ class SelectedRestaurant extends React.Component {
     })
   }
 
+  getAverageRating = () => {
+    
+  }
+
   displayDishes = (dishes) => {
     const { open, dimmer } = this.state
     return dishes.map(dish => {
       return (
         <div>
-            <Segment color='red' raised>{dish.name}<br/>
+            <Segment color='red' raised>
+              <Label className='label-position' as='a' color='red' ribbon>
+                <Icon name='star' /> 23
+              </Label>
+              <span>{dish.name}</span><br/>
               <Rating icon='star' defaultRating={0} maxRating={5} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /><br/>
               <Button onClick={this.show('blurring', dish.name)} color='red'>give feedback</Button><Button color='blue' onClick={this.show('blurring')}>view feedback</Button>
             </Segment>

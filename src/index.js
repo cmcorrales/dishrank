@@ -7,10 +7,11 @@ import configureStore from './store/configureStore'
 import history from './history';
 //Components:
 import App from './App';
-// import Login from './components/Login';
+import Login from './components/Login';
 import RestaurantList from './components/RestaurantList';
 import SelectedRestaurant from './components/SelectedRestaurant'
 import 'semantic-ui-css/semantic.min.css';
+/* same as: <Route path="/restaurantlist" render={renderProps => <RestaurantList {...renderProps} />} />  */
 
 
 const store = configureStore()
@@ -20,8 +21,8 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route exact path="/" component={App} />
-        {/* same as: <Route path="/restaurantlist" render={renderProps => <RestaurantList {...renderProps} />} />  */}
         <Route path="/selectedrestaurant" component={SelectedRestaurant} />
+        <Route path="/login" component={Login} />
       </Switch>
     </Router>
   </Provider>,

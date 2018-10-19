@@ -9,7 +9,6 @@ class SignUp extends React.Component {
   state = {
     username: '',
     password: '',
-    redirectToSignUp: false
   }
 
   handleOnChange = (event) => {

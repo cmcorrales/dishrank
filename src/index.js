@@ -10,6 +10,7 @@ import App from './App';
 import Login from './components/Login';
 import RestaurantList from './components/RestaurantList';
 import SelectedRestaurant from './components/SelectedRestaurant'
+import SignUp from './components/SignUp'
 import 'semantic-ui-css/semantic.min.css';
 /* same as: <Route path="/restaurantlist" render={renderProps => <RestaurantList {...renderProps} />} />  */
 
@@ -23,6 +24,7 @@ ReactDOM.render(
         <Route exact path="/" component={App} />
         <Route path="/selectedrestaurant" component={SelectedRestaurant} />
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
       </Switch>
     </Router>
   </Provider>,

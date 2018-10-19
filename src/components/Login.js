@@ -3,7 +3,7 @@ import NavigationBar from './NavigationBar'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { usersFetchData } from '../actions/users';
-import { Input, Grid, Button, Card } from 'semantic-ui-react'
+import { Input, Grid, Button, Card, Message, Icon } from 'semantic-ui-react'
 
 
 class Login extends Component {
@@ -13,9 +13,8 @@ class Login extends Component {
   }
 
   state = {
-    username: "",
-    password: "",
-    redirect: false
+    username: '',
+    password: '',
   }
 
   handleChange = (event) => {
@@ -38,7 +37,6 @@ class Login extends Component {
   getUser = () => {
     return this.state.currentUser ? this.state.currentUser[0] :null
   }
-
 
   render() {
     console.log(this.props.users)
@@ -63,7 +61,13 @@ class Login extends Component {
               </Grid>
             </form>
           </Card.Content>
+          <Message centered>
+            <p>
+              New user? <a href="/signup">Sign up.</a>
+            </p>
+          </Message>
         </Card>
+
       </React.Fragment>
     )
   }

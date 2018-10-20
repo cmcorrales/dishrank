@@ -21,6 +21,12 @@ class GiveFeedbackModal extends Component {
     lessPortion: false,
   }
 
+  onDone = (event) => {
+    event.preventDefault()
+    this.props.onAddReview(this.props.dishId, this.state.moreSalty, this.state.neutralSalty, this.state.lessSalty, this.state.moreSpicy, this.state.neutralSpicy, this.state.lessSpicy, this.state.moreSweet, this.state.neutralSweet, this.state.lessSweet, this.state.morePortion, this.state.neutralPortion, this.state.lessPortion)
+    this.props.onClose();
+  }
+
   handleClick = (flavorAdjustment) => {
     const flavorArray = flavorAdjustment.split(/(?=[A-Z])/)
     const flavor = flavorArray[1]
@@ -40,6 +46,7 @@ class GiveFeedbackModal extends Component {
   show = (dimmer, dishName) => () => this.setState({ dimmer, open: true, dishName: dishName })
 
   render() {
+    console.log("dish id from modal: ", this.props.dishId)
     return(
       <React.Fragment>
         <Modal.Header>How can {this.props.selectedRestaurant.selectedRestaurant.name} improve their {this.props.dishName}?</Modal.Header>
@@ -120,7 +127,7 @@ class GiveFeedbackModal extends Component {
             labelPosition='right'
             content="Done"
             //onSubmit={this.props.onAddReview(this.props.dishId, this.state.moreSalty, this.state.lessSalty, this.state.moreSpicy, this.state.lessSpicy, this.state.moreSweet, this.state.lessSweet)}
-            // onClick={this.onDone}
+            onClick={this.onDone}
           />
         </Modal.Actions>
       </React.Fragment>
@@ -134,4 +141,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(GiveFeedbackModal);
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddReview: (dishId, moreSalty, neutralSalty, lessSalty, moreSpicy, neutralSpicy, lessSpicy, moreSweet, neutralSweet, lessSweet, morePortion, neutralPortion, lessPortion) => {
+      dispatch(addReview(dishId, moreSalty, neutralSalty, lessSalty, moreSpicy, neutralSpicy, lessSpicy, moreSweet, neutralSweet, lessSweet, morePortion, neutralPortion, lessPortion));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GiveFeedbackModal);

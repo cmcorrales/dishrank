@@ -36,19 +36,56 @@ export function selectedRestaurant(state=[], action) {
   }
 }
 
-const initialState = {
+const initialRatingState = {
   loading: false,
   dish_id: '',
+  rating: '',
   error: null,
-  more_salty: '',
-  less_salty: '',
-  more_spicy: '',
-  less_spicy: '',
-  more_sweet: '',
-  less_sweet: '',
 };
 
-export function reviewsReducer(state = initialState, action) {
+const initialReviewState = {
+  dish_id: '',
+  more_salty: '',
+  neutral_salty: '',
+  less_salty: '',
+  more_spicy: '',
+  neutral_spicy: '',
+  less_spicy: '',
+  more_sweet: '',
+  neutral_sweet: '',
+  less_sweet: '',
+  more_portion: '',
+  neutral_portion: '',
+  less_portion: '',
+}
+
+export function ratingsReducer(state = initialRatingState, action) {
+  console.log(action)
+  switch (action.type) {
+    case 'ADD_RATING_STARTED':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'ADD_RATING_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        ratings: [...state.ratings, action.payload]
+      };
+    case 'ADD_RATING_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
+      };
+    default:
+      return state;
+  }
+}
+
+export function reviewsReducer(state = initialReviewState, action) {
   console.log(action)
   switch (action.type) {
     case 'ADD_REVIEW_STARTED':

@@ -47,22 +47,46 @@ export function restaurantsFetchData(url) {
     };
 }
 
-export const addReview = (rating, dish_id, more_salty, less_salty, more_spicy, less_spicy, more_sweet, less_sweet) => {
+export const addRating = (rating, dish_id) => {
+  return dispatch => {
+    console.log( "addRating action called")
+    dispatch(addRatingStarted());
+
+    axios
+      .post(`http://localhost:3000/api/v1/reviews/`, {
+        rating,
+        dish_id,
+      })
+      .then(res => {
+        dispatch(addRatingSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(addRatingFailure(err.message));
+      });
+  };
+}
+
+export const addReview = (dish_id, more_salty, neutral_salty, less_salty, more_spicy, neutral_spicy, less_spicy, more_sweet, neutral_sweet, less_sweet, more_portion, neutral_portion, less_portion) => {
   return dispatch => {
     console.log( "addReview action called")
     dispatch(addReviewStarted());
 
     axios
       .post(`http://localhost:3000/api/v1/reviews/`, {
-        rating,
         dish_id,
         more_salty,
+        neutral_salty,
         less_salty,
         more_spicy,
+        neutral_spicy,
         less_spicy,
         more_sweet,
+        neutral_sweet,
         less_sweet,
-        completed: false
+        more_portion,
+        neutral_portion,
+        less_portion,
+        completed: false,
       })
       .then(res => {
         dispatch(addReviewSuccess(res.data));
@@ -85,6 +109,24 @@ const addReviewStarted = () => ({
 });
 
 const addReviewFailure = error => ({
+  type: 'ADD_REVIEW_FAILURE',
+  payload: {
+    error
+  }
+});
+
+const addRatingSuccess = review => ({
+  type: 'ADD_REVIEW_SUCCESS',
+  payload: {
+    ...review
+  }
+});
+
+const addRatingStarted = () => ({
+  type: 'ADD_REVIEW_STARTED'
+});
+
+const addRatingFailure = error => ({
   type: 'ADD_REVIEW_FAILURE',
   payload: {
     error

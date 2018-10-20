@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Segment, Rating, Button, Icon, Label, Modal } from 'semantic-ui-react';
-import { addReview } from '../actions/restaurants';
+import { addRating } from '../actions/restaurants';
 import NavigationBar from './NavigationBar'
 import GiveFeedbackModal from './GiveFeedbackModal';
 import ViewFeedbackModal from './ViewFeedbackModal';
@@ -15,7 +15,7 @@ class SelectedRestaurant extends React.Component {
     dishName: '',
   }
 
-  show = (dimmer, dishName) => () => this.setState({ dimmer, open: true, dishName: dishName })
+  show = (dimmer, dishName, dishId) => () => this.setState({ dimmer, open: true, dishName: dishName, dishId: dishId })
   close = () => this.setState({ open: false })
 
   componentDidMount() {
@@ -31,17 +31,11 @@ class SelectedRestaurant extends React.Component {
       rating: rating,
       dishId: dishId,
     })
-    this.props.onAddReview(rating, dishId)
-  }
-
-  updateDishName = (dishName) => {
-    this.setState({
-      dishName: dishName
-    })
+    this.props.onAddRating(rating, dishId)
   }
 
   getAverageRating = () => {
-    
+
   }
 
   displayDishes = (dishes) => {
@@ -55,10 +49,10 @@ class SelectedRestaurant extends React.Component {
               </Label>
               <span>{dish.name}</span><br/>
               <Rating icon='star' defaultRating={0} maxRating={5} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /><br/>
-              <Button onClick={this.show('blurring', dish.name)} color='red'>give feedback</Button><Button color='blue' onClick={this.show('blurring')}>view feedback</Button>
+              <Button onClick={this.show('blurring', dish.name, dish.id)} color='red'>give feedback</Button><Button color='blue' onClick={this.show('blurring')}>view feedback</Button>
             </Segment>
             <Modal dimmer={dimmer} open={open} onClose={this.close}>
-              <GiveFeedbackModal dishName={this.state.dishName} dishId={dish.id} onClose={this.close}/>
+              <GiveFeedbackModal dishName={this.state.dishName} dishId={this.state.dishId} onClose={this.close}/>
             </Modal>
         </div>
       )
@@ -98,8 +92,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddReview: (rating, dishId) => {
-      dispatch(addReview(rating, dishId));
+    onAddRating: (rating, dishId) => {
+      dispatch(addRating(rating, dishId));
     }
   };
 };

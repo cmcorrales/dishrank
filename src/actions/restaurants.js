@@ -53,7 +53,7 @@ export const addRating = (rating, dish_id) => {
     dispatch(addRatingStarted());
 
     axios
-      .post(`http://localhost:3000/api/v1/reviews/`, {
+      .post(`http://localhost:3000/api/v1/dishes/`, {
         rating,
         dish_id,
       })
@@ -72,7 +72,7 @@ export const addReview = (dish_id, more_salty, neutral_salty, less_salty, more_s
     dispatch(addReviewStarted());
 
     axios
-      .post(`http://localhost:3000/api/v1/reviews/`, {
+      .post(`http://localhost:3000/api/v1/dishes/`, {
         dish_id,
         more_salty,
         neutral_salty,

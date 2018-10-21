@@ -49,11 +49,16 @@ class SelectedRestaurant extends React.Component {
               </Label>
               <span>{dish.name}</span><br/>
               <Rating icon='star' defaultRating={0} maxRating={5} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /><br/>
-              <Button onClick={this.show('blurring', dish.name, dish.id)} color='red'>give feedback</Button><Button color='blue' onClick={this.show('blurring')}>view feedback</Button>
+              <Button onClick={this.show('blurring', dish.name, dish.id)} color='red'>give feedback</Button>
+              <Modal trigger={<Button color='blue'>view feedback</Button>}>
+                <ViewFeedbackModal dishName={this.state.dishName}/>
+              </Modal>
             </Segment>
             <Modal dimmer={dimmer} open={open} onClose={this.close}>
               <GiveFeedbackModal dishName={this.state.dishName} dishId={this.state.dishId} onClose={this.close}/>
             </Modal>
+
+
         </div>
       )
     })

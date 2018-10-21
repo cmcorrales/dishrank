@@ -5,9 +5,12 @@
   "dependencies": {
     "@material-ui/core": "^3.2.2",
     "@material-ui/lab": "^3.0.0-alpha.20",
+    "apexcharts": "^2.1.5",
     "axios": "^0.18.0",
+    "canvasjs": "^1.8.1",
     "likert-react": "0.0.0-beta6",
     "react": "^16.5.2",
+    "react-apexcharts": "^1.0.9",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",

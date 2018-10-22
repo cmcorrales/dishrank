@@ -10,9 +10,6 @@ class ViewFeedbackModal extends Component {
   // get all reviews that match a specific dish at a restaurant, add to redux state
     componentDidMount() {
         this.props.fetchData('http://localhost:3000/api/v1/dishes');
-        const dish = this.props.dishes.map(dish => {
-          console.log("dish1:", dish)
-        })
     }
 
     // goToSelectedDish = (dish) => {
@@ -104,6 +101,7 @@ class ViewFeedbackModal extends Component {
   show = (dimmer, dishName) => () => this.setState({ dimmer, open: true })
 
   render() {
+    console.log("filtereddish33:", this.props.filteredDishes)
     if (this.props.hasError) {
         return <p>Sorry! There was an error loading the feedback data for this dish.</p>;
     }
@@ -112,7 +110,11 @@ class ViewFeedbackModal extends Component {
         return <p>Loading…</p>;
     }
 
-
+    // if (this.props.dishes) {
+    //   this.props.dishes.map(dish => {
+    //     console.log("dish name:",dish)
+    //   })
+    // }
 
     return (
       <React.Fragment>

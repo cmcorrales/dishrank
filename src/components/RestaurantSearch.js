@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Search } from 'semantic-ui-react';
+import {bindActionCreators} from 'redux';
+import {search} from '../actions/restaurants';
+import Restaurant from './Restaurant';
+
 
 class RestaurantSearch extends Component {
   state = {
@@ -9,29 +13,30 @@ class RestaurantSearch extends Component {
   }
 
   handleInputChange = (event) => {
-    let newlyDisplayed = this.props.restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(event.target.value.toLowerCase()))
+    this.props.restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(event.target.value.toLowerCase()))
     this.setState({
       searchTerm: event.target.value,
-      currentlyDisplayed: newlyDisplayed
     })
   }
 
   render() {
+    const {search, value} = this.props;
+
     return(
       <React.Fragment>
-      <Search className="hero-text">
-        <input type="text" value={this.props.searchTerm} onChange={this.handleInputChange} placeholder="search"/>
-      </Search>
+      <Search className="hero-text" onChange={(e) => search(e.target.value)} value={value} placeholder="search"/>
       {/* <Restaurant currentlyDisplayed={this.state.currentlyDisplayed}/> */}
       </React.Fragment>
     )
   }
 }
 
-  const mapStateToProps = (state) => {
-    return {
-      restaurants: state.restaurants
-    }
-  }
+function mapStateToProps({restaurants}) {
+  return {value: restaurants.value};
+}
 
-export default connect(mapStateToProps)(RestaurantSearch);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({search}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantSearch);

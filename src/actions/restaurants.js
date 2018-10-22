@@ -218,3 +218,47 @@ const addRestaurantFailure = error => ({
     error
   }
 });
+
+export const addDish = (name, restaurant_id) => {
+  return dispatch => {
+    console.log( "addRestaurant action called")
+    dispatch(addRestaurantStarted());
+
+    axios
+      .post(`http://localhost:3000/api/v1/dishes/`, {
+        name,
+        restaurant_id,
+        completed: false,
+      })
+      .then(res => {
+        dispatch(addDishSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(addRestaurantFailure(err.message));
+      });
+  };
+};
+
+const addDishSuccess = dish => ({
+  type: 'ADD_DISH_SUCCESS',
+  payload: {
+    ...dish
+  }
+});
+
+const addDishStarted = () => ({
+  type: 'ADD_DISH_STARTED'
+});
+
+const addDishFailure = error => ({
+  type: 'ADD_DISH_FAILURE',
+  payload: {
+    error
+  }
+});
+
+export const SEARCH = 'SEARCH';
+
+export function search(value) {
+  return {type: SEARCH, value};
+}

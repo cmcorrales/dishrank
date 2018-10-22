@@ -1,58 +1,41 @@
 import React, { Component } from 'react';
 import NavigationBar from './NavigationBar'
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { usersFetchData } from '../actions/users';
-import { Input, Grid, Button, Card, Message, Icon } from 'semantic-ui-react'
+import { login } from '../actions/users';
+import { Input, Grid, Button, Card, Message } from 'semantic-ui-react';
 
 
 class Login extends Component {
-
-  componentDidMount() {
-      this.props.fetchData('http://localhost:3000/api/v1/users');
-  }
 
   state = {
     username: '',
     password: '',
   }
 
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleOnChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+    console.log(this.state.username, this.state.password)
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault()
-    this.props.addUser(this.state.username, this.state.password)
-    console.log(this.state)
-    const currentUser = this.state.users.filter(user => user.username.toLowerCase() === this.state.username.toLowerCase())
-    return currentUser ? currentUser.map(user => {
-      return this.setState({
-        currentUser: user.id
-      })
-    }) :
-    null
-  }
 
-  getUser = () => {
-    return this.state.currentUser ? this.state.currentUser[0] :null
-  }
 
   render() {
-    console.log(this.props.users)
     return(
       <React.Fragment>
         <NavigationBar />
         <Card centered>
           <Card.Content>
-          <form>
+            <form onSubmit={(event)=>{event.preventDefault();this.props.onLogin(this.state.username, this.state.password)}}>
             <Grid centered columns={4}>
               <Grid.Row>
-                <Input type="text" value={this.props.username} onChange={this.handleChange} placeholder="username" />
+                <Input type="text" name="username"  onChange={this.handleOnChange} placeholder="username" />
               </Grid.Row>
 
               <Grid.Row>
-                <Input type="password" value={this.props.password} onChange={this.handleChange} placeholder="password" />
+                <Input type="password" name="password" onChange={this.handleOnChange} placeholder="password" />
               </Grid.Row>
 
               <Grid.Row>
@@ -84,9 +67,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
       fetchData: (url) => dispatch(usersFetchData(url)),
-      selectUser: (user) => dispatch({type: 'SELECT_USER', payload: user})
-  };
+      selectUser: (user) => dispatch({type: 'SELECT_USER', payload: user}),
+      onLogin: (username, password) => {
+        dispatch(login(username, password))
+      }
+  }
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

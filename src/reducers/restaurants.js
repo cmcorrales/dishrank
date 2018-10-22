@@ -1,3 +1,6 @@
+import {SEARCH} from '../actions/restaurants';
+
+
 export function restaurantsHaveError(state = false, action) {
     switch (action.type) {
         case 'RESTAURANTS_HAVE_ERROR':
@@ -100,6 +103,11 @@ const initialReviewState = {
   less_portion: '',
 }
 
+const initialDishState = {
+  name: '',
+  restaurant_id: ''
+}
+
 export function ratingsReducer(state = initialRatingState, action) {
   console.log(action)
   switch (action.type) {
@@ -177,6 +185,52 @@ export function restaurantsReducer(state = initialRestaurantState, action) {
         loading: false,
         error: action.payload.error
       };
+    default:
+      return state;
+  }
+}
+
+//addDishes reducer
+export function dishesReducer(state = initialDishState, action) {
+  console.log(action)
+  switch (action.type) {
+    case 'ADD_DISH_STARTED':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'ADD_DISH_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        dishes: [...state.dishes, action.payload]
+      };
+    case 'ADD_DISH_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
+      };
+    default:
+      return state;
+  }
+}
+
+
+
+const initialState = {
+  restaurants: [],
+  value: '',
+};
+
+export default function reducer(state = initialState, action) {
+  switch(action.type) {
+    case SEARCH: {
+      const {value} = action;
+      const restaurants = state.restaurants.filter((val) => val.includes(value));
+      return {...state, value, restaurants};
+    }
     default:
       return state;
   }

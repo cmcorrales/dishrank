@@ -82,3 +82,41 @@ const addUserFailure = error => ({
     error
   }
 });
+
+export const login = (username, password) => {
+  return dispatch => {
+    console.log( "login action called")
+    dispatch(loginStarted());
+
+    axios
+      .post(`http://localhost:3000/api/v1/login/`, {
+        username,
+        password,
+        completed: false
+      })
+      .then(res => {
+        dispatch(loginSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(loginFailure(err.message));
+      });
+  };
+};
+
+const loginSuccess = login => ({
+  type: 'ADD_LOGIN_SUCCESS',
+  payload: {
+    ...login
+  }
+});
+
+const loginStarted = () => ({
+  type: 'LOGIN_STARTED'
+});
+
+const loginFailure = error => ({
+  type: 'LOGIN_FAILURE',
+  payload: {
+    error
+  }
+});

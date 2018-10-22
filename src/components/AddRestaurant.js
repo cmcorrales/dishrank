@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Input, Form, Button, Icon, Grid, Card } from 'semantic-ui-react';
+import { Input, Button, Grid, Card } from 'semantic-ui-react';
 import { addRestaurant } from '../actions/restaurants';
 import NavigationBar from './NavigationBar'
-import axios from 'axios';
 
 class AddRestaurant extends React.Component {
   state = {

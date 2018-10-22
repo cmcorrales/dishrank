@@ -5,7 +5,7 @@ import { addRating } from '../actions/restaurants';
 import NavigationBar from './NavigationBar'
 import GiveFeedbackModal from './GiveFeedbackModal';
 import ViewFeedbackModal from './ViewFeedbackModal';
-import axios from 'axios';
+import AddDish from './AddDish';
 
 class SelectedRestaurant extends React.Component {
   state = {
@@ -52,11 +52,11 @@ class SelectedRestaurant extends React.Component {
               <Rating icon='star' defaultRating={0} maxRating={5} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /><br/>
               <Button onClick={this.show('blurring', dish.name, dish.id)} color='red'>give feedback</Button>
               <Modal trigger={<Button color='blue'>view feedback</Button>}>
-                <ViewFeedbackModal dishName={this.state.dishName}/>
+                <ViewFeedbackModal filteredDishes={this.filteredDishes(dish.id)} dishName={dish.name}/>
               </Modal>
             </Segment>
             <Modal dimmer={dimmer} open={open} onClose={this.close}>
-              <GiveFeedbackModal dishName={this.state.dishName} dishId={this.state.dishId} onClose={this.close}/>
+              <GiveFeedbackModal dishName={this.state.dishName} dishId={this.state.dishName} onClose={this.close}/>
             </Modal>
 
 
@@ -77,13 +77,19 @@ class SelectedRestaurant extends React.Component {
     }
   }
 
+  filteredDishes = (dishId) => {
+    return this.props.dishes.filter(dish => dish.id === dishId)
+  }
+
   render() {
+    console.log("filtered dishes:",this.filteredDishes())
     return (
       <React.Fragment>
         <NavigationBar />
         <div className="menuItems">
           <h1 className="heading">{this.props.selectedRestaurant.selectedRestaurant.name}</h1>
           { this.checkDishes(this.state.dishes) }
+          <AddDish />
         </div>
       </React.Fragment>
     )
@@ -93,6 +99,7 @@ class SelectedRestaurant extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selectedRestaurant: state.selectedRestaurant,
+    dishes: state.dishes,
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Header, Image, Modal, Divider, Segment, Icon, Grid } from 'semantic-ui-react';
+import { Button, Modal, Segment, Icon, Grid } from 'semantic-ui-react';
 import { addReview } from '../actions/restaurants';
 import { connect } from 'react-redux';
 

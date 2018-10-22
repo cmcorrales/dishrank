@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'semantic-ui-react';
 import { restaurantsFetchData } from '../actions/restaurants';
-import { withRouter, Router, Route } from 'react-router-dom';
-import history from '../history';
+import { withRouter } from 'react-router-dom';
 import Restaurant from './Restaurant';
-import SelectedRestaurant from './SelectedRestaurant';
 
 class RestaurantList extends Component {
   componentDidMount() {

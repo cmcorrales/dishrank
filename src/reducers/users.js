@@ -44,14 +44,14 @@ export function userLoginSuccess(state = initialUserState, action) {
     }
 }
 
-const initialState = {
+const initialUser2State = {
   loading: false,
   error: null,
   username: '',
   password: '',
 };
 
-export function usersReducer(state = initialState, action) {
+export function usersReducer(state = initialUser2State, action) {
   console.log(action)
   switch (action.type) {
     case 'ADD_USER_STARTED':
@@ -67,6 +67,39 @@ export function usersReducer(state = initialState, action) {
         users: [...state.users, action.payload]
       };
     case 'ADD_USER_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
+      };
+    default:
+      return state;
+  }
+}
+
+const initialLoginState = {
+  loading: false,
+  error: null,
+  username: '',
+  password: '',
+};
+
+export function loginsReducer(state = initialLoginState, action) {
+  console.log(action)
+  switch (action.type) {
+    case 'ADD_LOGIN_STARTED':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'ADD_LOGIN_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        logins: [...state.logins, action.payload]
+      };
+    case 'ADD_LOGIN_FAILURE':
       return {
         ...state,
         loading: false,

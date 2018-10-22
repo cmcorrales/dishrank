@@ -19,10 +19,11 @@ class SelectedRestaurant extends React.Component {
   close = () => this.setState({ open: false })
 
   componentDidMount() {
-    const menusArray = this.props.selectedRestaurant.selectedRestaurant.menus[0]
-    const currentMenu = menusArray ? menusArray.dishes.map(dish => dish) : null;
+    const dishesArray = this.props.selectedRestaurant.selectedRestaurant.dishes
+    console.log(dishesArray)
+    const dishes = dishesArray ? dishesArray.map(dish => dish) : null;
     this.setState({
-      dishes: currentMenu
+      dishes: dishes,
     })
   }
 

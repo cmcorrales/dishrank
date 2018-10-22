@@ -36,8 +36,48 @@ export function selectedRestaurant(state=[], action) {
   }
 }
 
+export function dishesHaveError(state = false, action) {
+    switch (action.type) {
+        case 'DISHES_HAVE_ERROR':
+            return action.hasError;
+
+        default:
+            return state;
+    }
+}
+
+export function dishesAreLoading(state = false, action) {
+    switch (action.type) {
+        case 'DISHES_ARE_LOADING':
+            return action.isLoading;
+
+        default:
+            return state;
+    }
+}
+
+export function dishes(state = [], action) {
+    switch (action.type) {
+        case 'DISHES_FETCH_DATA_SUCCESS':
+            return action.dishes;
+        default:
+            return state;
+    }
+}
+
+export function selectedDish(state=[], action) {
+  switch (action.type) {
+    case 'SELECT_DISH':
+        return {...state, selectedDish: action.payload};
+    default:
+        return state;
+  }
+}
+
+
 const initialRatingState = {
   loading: false,
+  // restaurant_id: '',
   dish_id: '',
   rating: '',
   error: null,
@@ -45,6 +85,7 @@ const initialRatingState = {
 
 const initialReviewState = {
   dish_id: '',
+  // restaurant_id: '',
   more_salty: '',
   neutral_salty: '',
   less_salty: '',
@@ -101,6 +142,36 @@ export function reviewsReducer(state = initialReviewState, action) {
         reviews: [...state.reviews, action.payload]
       };
     case 'ADD_REVIEW_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
+      };
+    default:
+      return state;
+  }
+}
+
+const initialRestaurantState = {
+  name: [],
+}
+
+export function restaurantsReducer(state = initialRestaurantState, action) {
+  console.log(action)
+  switch (action.type) {
+    case 'ADD_RESTAURANT_STARTED':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'ADD_RESTAURANT_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        restaurants: [...state.restaurants, action.payload]
+      };
+    case 'ADD_RESTAURANT_FAILURE':
       return {
         ...state,
         loading: false,

@@ -3,18 +3,20 @@ import { Menu } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 
 
-export default class MenuExampleSecondaryPointing extends Component {
+export default class NavigationBar extends Component {
   state = {
     activeItem: 'home',
     redirectToLogin: false,
-    redirectToHome: false
+    redirectToHome: false,
+    redirectToAddRestaurant: false,
   }
 
   handleLoginClick = (e, { name }) => {
     this.setState({
       activeItem: name,
       redirectToLogin: true,
-      redirectToHome: false
+      redirectToHome: false,
+      redirectToAddRestaurant: false
     })
   }
 
@@ -22,7 +24,17 @@ export default class MenuExampleSecondaryPointing extends Component {
     this.setState({
       activeItem: name,
       redirectToLogin: false,
-      redirectToHome: true
+      redirectToHome: true,
+      redirectToAddRestaurant: false,
+    })
+  }
+
+  handleAddRestaurantClick = (e, { name }) => {
+    this.setState({
+      activeItem: name,
+      redirectToLogin: false,
+      redirectToHome: false,
+      redirectToAddRestaurant: true,
     })
   }
 
@@ -32,6 +44,9 @@ export default class MenuExampleSecondaryPointing extends Component {
     }
     if (this.state.redirectToHome) {
       return <Redirect to='/' />
+    }
+    if (this.state.redirectToAddRestaurant) {
+      return <Redirect to='/addrestaurant' />
     }
   }
 
@@ -45,7 +60,7 @@ export default class MenuExampleSecondaryPointing extends Component {
           <Menu.Item
             name='add restaurant'
             active={activeItem === 'add restaurant'}
-            onClick={this.handleHomeClick}
+            onClick={this.handleAddRestaurantClick}
           />
 
           <Menu.Menu position='right'>

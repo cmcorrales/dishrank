@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import { Button, Header, Image, Modal, Divider, Segment } from 'semantic-ui-react';
 import { addReview } from '../actions/restaurants';
+import { dishesFetchData } from '../actions/restaurants';
 import { connect } from 'react-redux';
 import Chart from "react-apexcharts";
 
 
 class ViewFeedbackModal extends Component {
   // get all reviews that match a specific dish at a restaurant, add to redux state
+    componentDidMount() {
+        this.props.fetchData('http://localhost:3000/api/v1/dishes');
+        const dish = this.props.dishes.map(dish => {
+          console.log("dish1:", dish)
+        })
+    }
+
+    // goToSelectedDish = (dish) => {
+    //   this.props.history.push('/selectedDish')
+    //   this.props.selectDish(dish)
+    // };
   // map through each dish
+
   // when mapping through each dish:
   // 1. filter the reviews that match the selected dishId and name
   // 2. retrieve
@@ -91,8 +104,17 @@ class ViewFeedbackModal extends Component {
   show = (dimmer, dishName) => () => this.setState({ dimmer, open: true })
 
   render() {
+    if (this.props.hasError) {
+        return <p>Sorry! There was an error loading the feedback data for this dish.</p>;
+    }
 
-    return(
+    if (this.props.isLoading) {
+        return <p>Loading…</p>;
+    }
+
+
+
+    return (
       <React.Fragment>
       <Modal.Header>Feedback for {this.props.selectedRestaurant.selectedRestaurant.name}: {this.props.dishName}</Modal.Header>
       <Modal.Content>
@@ -121,15 +143,25 @@ class ViewFeedbackModal extends Component {
       </Modal.Actions>
       </React.Fragment>
     )
-  }
 }
-
-
+}
 
 const mapStateToProps = (state) => {
   return {
-    selectedRestaurant: state.selectedRestaurant,
-  }
-}
+      selectedRestaurant: state.selectedRestaurant,
+      // selectedDish: state.selectedDish,
+      dishes: state.dishes,
+      hasError: state.dishesHaveError,
+      isLoading: state.dishesAreLoading,
+  };
+};
 
-export default connect(mapStateToProps)(ViewFeedbackModal);
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchData: (url) => dispatch(dishesFetchData(url)),
+      // selectDish: (dish) => dispatch({type: 'SELECT_DISH', payload: dish})
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewFeedbackModal);

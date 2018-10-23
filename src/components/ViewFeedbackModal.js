@@ -39,8 +39,8 @@ class ViewFeedbackModal extends Component {
                 }
             },
             yaxis: {
-                min: -5,
-                max: 5,
+                min: -100,
+                max: 100,
                 title: {
                    // text: 'Age',
                 },
@@ -75,11 +75,11 @@ class ViewFeedbackModal extends Component {
             },
             series: [{
                 name: 'increase',
-                data: [0.65, 0.76, 0.88, 1.5]
+                data: [this.moreSaltyPercent(), this.moreSpicyPercent(), this.moreSweetPercent(), this.morePortionPercent()]
             },
             {
                 name: 'decrease',
-                data: [-0.8, -1.18, -1.4, -2.2]
+                data: [-this.lessSaltyPercent(), -this.lessSpicyPercent(), -this.lessSweetPercent(), -this.lessPortionPercent()]
             }],
         };
   }
@@ -92,29 +92,127 @@ class ViewFeedbackModal extends Component {
   // data.map(obj => obj.reviews).forEach(x => x.length > 0 ? x.forEach(r => console.log(r.rating)) : 'empty array')
 
 
-  getReviewsArray = (flavorAdjustment) => {
+  moreSaltyPercent = () => {
     if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
-      console.log("The array is undefined! Result is: " + this.props.filteredDishes)
       return "No ratings"
-    } else {
-      console.log("The array has something in it! Result is: " + this.props.filteredDishes["0"])
-      const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
-      const reviewsWithFeedback = this.props.filteredDishes["0"].reviews.map(review => `${review[flavorAdjustment]}`)
-      const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
-
-      //get reviews where flavorAdjustment value === true
-      const flavorAdjustmentReviews = allReviews.filter(review => review.more_salty === true)
-      // const NumReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
-      // const flavorArray = allReviews.map(item => `${item[flavorAdjustment]}`)
-      // const numFlavorArray = flavorArray.filter(item => item === "true").length
-      // const filteredFlavorArray = flavorArray.filter(value => value !== null )
-      // const averageRating = filteredFlavorArray.reduce((a, b) => a + b) / filteredFlavorArray.length
-      return reviewsWithFlavorFeedback
     }
+    else {
+      const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+      const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+      const numReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+      const flavorAdjustmentReviews = allReviews.filter(review => review.more_salty === true)
+      const numFlavorAdujstmentReviews = flavorAdjustmentReviews.length
+      const percent = Math.round((numFlavorAdujstmentReviews / numReviewsWithFlavorFeedback) * 100)
+      return percent
   }
+}
+
+lessSaltyPercent = () => {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+    return "No ratings"
+  }
+  else {
+    const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+    const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+    const numReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+    const flavorAdjustmentReviews = allReviews.filter(review => review.less_salty === true)
+    const numFlavorAdujstmentReviews = flavorAdjustmentReviews.length
+    const percent = Math.round((numFlavorAdujstmentReviews / numReviewsWithFlavorFeedback) * 100)
+    return percent
+  }
+}
+
+moreSpicyPercent = () => {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+    return "No ratings"
+  }
+  else {
+    const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+    const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+    const numReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+    const flavorAdjustmentReviews = allReviews.filter(review => review.more_spicy === true)
+    const numFlavorAdujstmentReviews = flavorAdjustmentReviews.length
+    const percent = Math.round((numFlavorAdujstmentReviews / numReviewsWithFlavorFeedback) * 100)
+    return percent
+  }
+}
+
+lessSpicyPercent = () => {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+    return "No ratings"
+  }
+  else {
+    const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+    const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+    const numReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+    const flavorAdjustmentReviews = allReviews.filter(review => review.less_spicy === true)
+    const numFlavorAdujstmentReviews = flavorAdjustmentReviews.length
+    const percent = Math.round((numFlavorAdujstmentReviews / numReviewsWithFlavorFeedback) * 100)
+    return percent
+  }
+}
+
+moreSweetPercent = () => {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+    return "No ratings"
+  }
+  else {
+    const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+    const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+    const numReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+    const flavorAdjustmentReviews = allReviews.filter(review => review.more_sweet === true)
+    const numFlavorAdujstmentReviews = flavorAdjustmentReviews.length
+    const percent = Math.round((numFlavorAdujstmentReviews / numReviewsWithFlavorFeedback) * 100)
+    return percent
+  }
+}
+
+lessSweetPercent = () => {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+    return "No ratings"
+  }
+  else {
+    const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+    const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+    const numReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+    const flavorAdjustmentReviews = allReviews.filter(review => review.less_sweet === true)
+    const numFlavorAdujstmentReviews = flavorAdjustmentReviews.length
+    const percent = Math.round((numFlavorAdujstmentReviews / numReviewsWithFlavorFeedback) * 100)
+    return percent
+  }
+}
+
+morePortionPercent = () => {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+    return "No ratings"
+  }
+  else {
+    const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+    const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+    const numReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+    const flavorAdjustmentReviews = allReviews.filter(review => review.more_portion === true)
+    const numFlavorAdujstmentReviews = flavorAdjustmentReviews.length
+    const percent = Math.round((numFlavorAdujstmentReviews / numReviewsWithFlavorFeedback) * 100)
+    return percent
+  }
+}
+
+lessPortionPercent = () => {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+    return "No ratings"
+  }
+  else {
+    const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+    const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+    const numReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+    const flavorAdjustmentReviews = allReviews.filter(review => review.less_portion === true)
+    const numFlavorAdujstmentReviews = flavorAdjustmentReviews.length
+    const percent = Math.round((numFlavorAdujstmentReviews / numReviewsWithFlavorFeedback) * 100)
+    return percent
+  }
+}
 
   render() {
-    console.log("reviews:## ",this.getReviewsArray('more_salty'))
     // console.log("filtereddishes//:", this.props.filteredDishes)
     // console.log("reviewProperty++:", this.getReviewsArray())
     if (this.props.hasError) {

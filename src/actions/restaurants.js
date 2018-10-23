@@ -114,7 +114,7 @@ export const addRating = (rating, dish_id) => {
   };
 }
 
-export const addReview = (dish_id, more_salty, neutral_salty, less_salty, more_spicy, neutral_spicy, less_spicy, more_sweet, neutral_sweet, less_sweet, more_portion, neutral_portion, less_portion) => {
+export const addReview = (dish_id, dish_name, more_salty, neutral_salty, less_salty, more_spicy, neutral_spicy, less_spicy, more_sweet, neutral_sweet, less_sweet, more_portion, neutral_portion, less_portion) => {
   return dispatch => {
     console.log( "addReview action called")
     dispatch(addReviewStarted());
@@ -122,6 +122,7 @@ export const addReview = (dish_id, more_salty, neutral_salty, less_salty, more_s
     axios
       .post(`http://localhost:3000/api/v1/reviews/`, {
         dish_id,
+        dish_name,
         // restaurant_id,
         more_salty,
         neutral_salty,
@@ -164,19 +165,19 @@ const addReviewFailure = error => ({
   }
 });
 
-const addRatingSuccess = review => ({
-  type: 'ADD_REVIEW_SUCCESS',
+const addRatingSuccess = rating => ({
+  type: 'ADD_RATING_SUCCESS',
   payload: {
-    ...review
+    ...rating
   }
 });
 
 const addRatingStarted = () => ({
-  type: 'ADD_REVIEW_STARTED'
+  type: 'ADD_RATING_STARTED'
 });
 
 const addRatingFailure = error => ({
-  type: 'ADD_REVIEW_FAILURE',
+  type: 'ADD_RATING_FAILURE',
   payload: {
     error
   }

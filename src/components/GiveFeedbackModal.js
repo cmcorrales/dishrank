@@ -23,7 +23,7 @@ class GiveFeedbackModal extends Component {
 
   onDone = (event) => {
     event.preventDefault()
-    this.props.onAddReview(this.props.dishId, this.state.moreSalty, this.state.neutralSalty, this.state.lessSalty, this.state.moreSpicy, this.state.neutralSpicy, this.state.lessSpicy, this.state.moreSweet, this.state.neutralSweet, this.state.lessSweet, this.state.morePortion, this.state.neutralPortion, this.state.lessPortion)
+    this.props.onAddReview(this.props.dishId, this.props.dishName, this.state.moreSalty, this.state.neutralSalty, this.state.lessSalty, this.state.moreSpicy, this.state.neutralSpicy, this.state.lessSpicy, this.state.moreSweet, this.state.neutralSweet, this.state.lessSweet, this.state.morePortion, this.state.neutralPortion, this.state.lessPortion)
     this.props.onClose();
   }
 
@@ -143,8 +143,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddReview: (dishId, moreSalty, neutralSalty, lessSalty, moreSpicy, neutralSpicy, lessSpicy, moreSweet, neutralSweet, lessSweet, morePortion, neutralPortion, lessPortion) => {
-      dispatch(addReview(dishId, moreSalty, neutralSalty, lessSalty, moreSpicy, neutralSpicy, lessSpicy, moreSweet, neutralSweet, lessSweet, morePortion, neutralPortion, lessPortion));
+    onAddReview: (dishId, dishName, moreSalty, neutralSalty, lessSalty, moreSpicy, neutralSpicy, lessSpicy, moreSweet, neutralSweet, lessSweet, morePortion, neutralPortion, lessPortion) => {
+      dispatch(addReview(dishId, dishName, moreSalty, neutralSalty, lessSalty, moreSpicy, neutralSpicy, lessSpicy, moreSweet, neutralSweet, lessSweet, morePortion, neutralPortion, lessPortion));
     }
   };
 };

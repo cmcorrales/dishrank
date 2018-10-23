@@ -8,19 +8,6 @@ import Chart from "react-apexcharts";
 
 class ViewFeedbackModal extends Component {
   // get all reviews that match a specific dish at a restaurant, add to redux state
-    componentDidMount() {
-        this.props.fetchData('http://localhost:3000/api/v1/dishes');
-    }
-
-    // goToSelectedDish = (dish) => {
-    //   this.props.history.push('/selectedDish')
-    //   this.props.selectDish(dish)
-    // };
-  // map through each dish
-
-  // when mapping through each dish:
-  // 1. filter the reviews that match the selected dishId and name
-  // 2. retrieve
   constructor(props) {
     super(props);
 
@@ -97,11 +84,39 @@ class ViewFeedbackModal extends Component {
         };
   }
 
-  close = () => this.setState({ open: false })
-  show = (dimmer, dishName) => () => this.setState({ dimmer, open: true })
+  close = () => this.setState({ open: false });
+
+  show = (dimmer, dishName) => () => this.setState({ dimmer, open: true });
+
+// bearros code
+  // data.map(obj => obj.reviews).forEach(x => x.length > 0 ? x.forEach(r => console.log(r.rating)) : 'empty array')
+
+
+  getReviewsArray = (flavorAdjustment) => {
+    if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+      console.log("The array is undefined! Result is: " + this.props.filteredDishes)
+      return "No ratings"
+    } else {
+      console.log("The array has something in it! Result is: " + this.props.filteredDishes["0"])
+      const allReviews = this.props.filteredDishes["0"].reviews.map(item => item)
+      const reviewsWithFeedback = this.props.filteredDishes["0"].reviews.map(review => `${review[flavorAdjustment]}`)
+      const reviewsWithFlavorFeedback = allReviews.filter(review => Object.values(review).indexOf(true) > -1)
+
+      //get reviews where flavorAdjustment value === true
+      const flavorAdjustmentReviews = allReviews.filter(review => review.more_salty === true)
+      // const NumReviewsWithFlavorFeedback = reviewsWithFlavorFeedback.length
+      // const flavorArray = allReviews.map(item => `${item[flavorAdjustment]}`)
+      // const numFlavorArray = flavorArray.filter(item => item === "true").length
+      // const filteredFlavorArray = flavorArray.filter(value => value !== null )
+      // const averageRating = filteredFlavorArray.reduce((a, b) => a + b) / filteredFlavorArray.length
+      return reviewsWithFlavorFeedback
+    }
+  }
 
   render() {
-    console.log("filtereddish33:", this.props.filteredDishes)
+    console.log("reviews:## ",this.getReviewsArray('more_salty'))
+    // console.log("filtereddishes//:", this.props.filteredDishes)
+    // console.log("reviewProperty++:", this.getReviewsArray())
     if (this.props.hasError) {
         return <p>Sorry! There was an error loading the feedback data for this dish.</p>;
     }
@@ -158,12 +173,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-      fetchData: (url) => dispatch(dishesFetchData(url)),
-      // selectDish: (dish) => dispatch({type: 'SELECT_DISH', payload: dish})
-  };
-};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(ViewFeedbackModal);
+export default connect(mapStateToProps)(ViewFeedbackModal);

@@ -88,6 +88,7 @@ const initialRatingState = {
 
 const initialReviewState = {
   dish_id: '',
+  dish_name: '',
   // restaurant_id: '',
   more_salty: '',
   neutral_salty: '',
@@ -101,6 +102,7 @@ const initialReviewState = {
   more_portion: '',
   neutral_portion: '',
   less_portion: '',
+  reviews: [],
 }
 
 const initialDishState = {
@@ -164,7 +166,7 @@ const initialRestaurantState = {
   name: [],
 }
 
-export function restaurantsReducer(state = initialRestaurantState, action) {
+export function restaurantsReducer(state = [initialRestaurantState], action) {
   console.log(action)
   switch (action.type) {
     case 'ADD_RESTAURANT_STARTED':

@@ -1,4 +1,4 @@
-import {SEARCH} from '../actions/restaurants';
+// import {SEARCH} from '../actions/restaurants';
 
 
 export function restaurantsHaveError(state = false, action) {
@@ -221,19 +221,18 @@ export function dishesReducer(state = initialDishState, action) {
 
 
 
-const initialState = {
+const initialSearchState = {
   restaurants: [],
   value: '',
 };
 
-export default function reducer(state = initialState, action) {
-  switch(action.type) {
-    case SEARCH: {
-      const {value} = action;
-      const restaurants = state.restaurants.filter((val) => val.includes(value));
-      return {...state, value, restaurants};
-    }
-    default:
-      return state;
-  }
-}
+// export function searchReducer(state = initialSearchState, action) {
+//   switch(action.type) {
+//     case 'SEARCH': {
+//       // const restaurants = state.restaurants.filter((val) => val.includes(value));
+//       return {...state, restaurants};
+//     }
+//     default:
+//       return state;
+//   }
+// }

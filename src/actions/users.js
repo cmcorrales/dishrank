@@ -120,3 +120,50 @@ const loginFailure = error => ({
     error
   }
 });
+
+export function loginsHaveError(bool) {
+    return {
+        type: 'LOGINS_HAVE_ERROR',
+        hasError: bool
+    };
+}
+
+export function loginsAreLoading(bool) {
+    return {
+        type: 'LOGINS_ARE_LOADING',
+        isLoading: bool
+    };
+}
+
+export function loginsFetchDataSuccess(logins) {
+    return {
+        type: 'LOGINS_FETCH_DATA_SUCCESS',
+        logins
+    };
+}
+
+export function selectedRestaurant(login) {
+    return {
+        type: 'SELECT_LOGIN',
+        selectedRestaurant
+    };
+}
+
+export function loginsFetchData(url) {
+    return (dispatch) => {
+        dispatch(loginsAreLoading(true));
+
+        axios.get(url)
+            .then((response) => {
+                if (response.status !== 200) {
+                    throw Error(response.statusText);
+                }
+
+                dispatch(loginsAreLoading(false));
+
+                return response;
+            })
+            .then((response) => dispatch(loginsFetchDataSuccess(response.data)))
+            .catch(() => dispatch(loginsHaveError(true)));
+    };
+}

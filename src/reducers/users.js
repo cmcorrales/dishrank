@@ -77,11 +77,13 @@ export function usersReducer(state = initialUser2State, action) {
   }
 }
 
+// login post reducer
 const initialLoginState = {
   loading: false,
   error: null,
   username: '',
   password: '',
+  login: '',
 };
 
 export function loginsReducer(state = initialLoginState, action) {
@@ -97,7 +99,7 @@ export function loginsReducer(state = initialLoginState, action) {
         ...state,
         loading: false,
         error: null,
-        logins: [...state.logins, action.payload]
+        login: action.payload
       };
     case 'ADD_LOGIN_FAILURE':
       return {
@@ -108,4 +110,34 @@ export function loginsReducer(state = initialLoginState, action) {
     default:
       return state;
   }
+}
+
+//login get request reducers
+export function loginsHaveError(state = false, action) {
+    switch (action.type) {
+        case 'LOGINS_HAVE_ERROR':
+            return action.hasError;
+
+        default:
+            return state;
+    }
+}
+
+export function loginsAreLoading(state = false, action) {
+    switch (action.type) {
+        case 'LOGINS_ARE_LOADING':
+            return action.isLoading;
+
+        default:
+            return state;
+    }
+}
+
+export function logins(state = [], action) {
+    switch (action.type) {
+        case 'LOGINS_FETCH_DATA_SUCCESS':
+            return action.logins;
+        default:
+            return state;
+    }
 }

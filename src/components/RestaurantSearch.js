@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Search } from 'semantic-ui-react';
-import {bindActionCreators} from 'redux';
-import {search} from '../actions/restaurants';
+// import {search} from './actions';
 import Restaurant from './Restaurant';
-
 
 class RestaurantSearch extends Component {
   state = {
@@ -24,19 +22,24 @@ class RestaurantSearch extends Component {
 
     return(
       <React.Fragment>
-      <Search className="hero-text" onChange={(e) => search(e.target.value)} value={value} placeholder="search"/>
+      <Search className="hero-text" value={value} onChange={(e) => search(e.target.value)} onSubmit={this.handleSearchSubmit} placeholder="search"/>
       {/* <Restaurant currentlyDisplayed={this.state.currentlyDisplayed}/> */}
       </React.Fragment>
     )
   }
 }
 
-function mapStateToProps({restaurants}) {
-  return {value: restaurants.value};
-}
+const mapStateToProps = (state) => {
+  return {
+      restaurants: state.restaurants
+    }
+  }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({search}, dispatch);
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(RestaurantSearch);
+// function mapDispatchToProps(dispatch) {
+//   return {
+//   search: (e.target.value) => dispatch({type: 'SEARCH', payload: restaurant})
+//   }
+// }
+
+export default connect(mapStateToProps)(RestaurantSearch);

@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
-import { restaurants, restaurantsHaveError, restaurantsAreLoading, selectedRestaurant, reviewsReducer, dishes, dishesHaveError, dishesAreLoading, selectedDish } from './restaurants';
-import { users, usersHaveError, usersAreLoading, userLoginSuccess } from './users';
+import { restaurants, restaurantsHaveError, restaurantsAreLoading, selectedRestaurant, reviewsReducer, dishes, dishesHaveError, dishesAreLoading, selectedDish, ratingsReducer, restaurantsReducer, dishesReducer } from './restaurants';
+import { users, usersHaveError, usersAreLoading, userLoginSuccess, loginsReducer, loginsHaveError, loginsAreLoading, logins } from './users';
 
 export default combineReducers({
     restaurants,
     restaurantsHaveError,
     restaurantsAreLoading,
+    restaurantsReducer,
+    ratingsReducer,
     selectedRestaurant,
     reviewsReducer,
     users,
@@ -15,5 +17,10 @@ export default combineReducers({
     dishes,
     dishesHaveError,
     dishesAreLoading,
+    dishesReducer,
     selectedDish,
+    loginsReducer,
+    loginsHaveError,
+    loginsAreLoading,
+    logins,
 });

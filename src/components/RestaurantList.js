@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'semantic-ui-react';
-import { restaurantsFetchData } from '../actions/restaurants';
 import { withRouter } from 'react-router-dom';
+import history from '../history';
 import Restaurant from './Restaurant';
+import SelectedRestaurant from './SelectedRestaurant';
 
 class RestaurantList extends Component {
-  componentDidMount() {
-      this.props.fetchData('http://localhost:3000/api/v1/restaurants');
-  }
 
   goToSelectedRestaurant = (restaurant) => {
     this.props.history.push('/selectedrestaurant')
     this.props.selectRestaurant(restaurant)
   };
 
+
   render() {
+    console.log(this.props)
       if (this.props.hasError) {
           return <p>Sorry! There was an error loading the restaurants</p>;
       }
@@ -24,7 +24,7 @@ class RestaurantList extends Component {
           return <p>Loading…</p>;
       }
 
-      const renderedRestaurants = this.props.restaurants.map((restaurant) => {
+      const renderedRestaurants = this.props.filteredRestaurants.map((restaurant) => {
         return <Restaurant key={restaurant.id} restaurant={restaurant} handleClick={() => this.goToSelectedRestaurant(restaurant)}/>
       })
 
@@ -48,7 +48,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      fetchData: (url) => dispatch(restaurantsFetchData(url)),
       selectRestaurant: (restaurant) => dispatch({type: 'SELECT_RESTAURANT', payload: restaurant})
   };
 };

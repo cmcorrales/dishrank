@@ -7,22 +7,32 @@ import { Input, Grid, Button, Card, Message } from 'semantic-ui-react';
 
 
 class Login extends Component {
+  componentDidMount() {
+      this.props.fetchData('http://localhost:3000/api/v1/login');
+  }
 
   state = {
     username: '',
     password: '',
+    currentUser: [],
+    unverifiedLogin: false,
   }
 
   handleOnChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      username: event.target.value,
+      password: event.target.value
     });
     console.log(this.state.username, this.state.password)
   }
 
+  // getCurrentUser = () => {
+  //   if(this.props.login)
+  // }
 
 
   render() {
+    console.log("user=",this.props.login)
     return(
       <React.Fragment>
         <NavigationBar />
@@ -33,7 +43,6 @@ class Login extends Component {
               <Grid.Row>
                 <Input type="text" name="username"  onChange={this.handleOnChange} placeholder="username" />
               </Grid.Row>
-
               <Grid.Row>
                 <Input type="password" name="password" onChange={this.handleOnChange} placeholder="password" />
               </Grid.Row>
@@ -50,17 +59,19 @@ class Login extends Component {
             </p>
           </Message>
         </Card>
-
       </React.Fragment>
     )
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
       users: state.users,
       hasError: state.usersHaveError,
       isLoading: state.usersAreLoading,
+      userLoginSuccess: state.userLoginSuccess,
+      login: state.loginsReducer.login
   };
 };
 

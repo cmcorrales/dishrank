@@ -47,7 +47,7 @@ class SelectedRestaurant extends React.Component {
       const flavorArray = filteredDishes["0"].reviews.map(item => item.rating)
       const filteredFlavorArray = flavorArray.filter(value => value !== null )
       const averageRating = filteredFlavorArray.reduce((a, b) => a + b, 0) / (filteredFlavorArray.length||1)
-      return averageRating
+      return averageRating !== 0? averageRating.toFixed(2) : "No ratings"
     }
 }
 
@@ -94,12 +94,13 @@ class SelectedRestaurant extends React.Component {
   }
 
   render() {
-    console.log("filtered dishes:",this.filteredDishes())
+    // console.log("filtered dishes:",this.filteredDishes())
+    console.log(this.props)
     return (
       <React.Fragment>
         <NavigationBar />
         <div className="menuItems">
-          <h1 className="heading">{this.props.selectedRestaurant.selectedRestaurant.name}</h1>
+          {/* <h1 className="heading">{this.props.selectedRestaurant.selectedRestaurant.name}</h1> */}
           { this.checkDishes(this.state.dishes) }
           <AddDish />
         </div>

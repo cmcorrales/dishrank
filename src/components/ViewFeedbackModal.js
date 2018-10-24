@@ -22,7 +22,7 @@ class ViewFeedbackModal extends Component {
             plotOptions: {
                 bar: {
                     horizontal: true,
-                    barHeight: '80%',
+                    barHeight: '100%',
 
                 },
             },

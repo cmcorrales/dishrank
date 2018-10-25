@@ -7,6 +7,7 @@ import GiveFeedbackModal from './GiveFeedbackModal';
 import ViewFeedbackModal from './ViewFeedbackModal';
 import AddDish from './AddDish';
 import { dishesFetchData } from '../actions/restaurants';
+
 class SelectedRestaurant extends React.Component {
   state = {
     dishes: [],
@@ -104,13 +105,14 @@ class SelectedRestaurant extends React.Component {
   }
 
   render() {
+    console.log("dishes:", this.props.dishes)
     console.log("filtered dishes:",this.filteredDishes())
     return (
       <React.Fragment>
         <NavigationBar />
         <div className="menuItems">
           <h1 className="heading">{this.props.selectedRestaurant.selectedRestaurant.name}</h1>
-          { this.checkDishes(this.state.dishes) }
+          { this.checkDishes(this.props.dishes) }
           <AddDish />
         </div>
       </React.Fragment>

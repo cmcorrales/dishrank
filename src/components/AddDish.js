@@ -6,6 +6,7 @@ import NavigationBar from './NavigationBar'
 
 class AddDish extends React.Component {
   state = {
+    restaurants: this.props.selectedRestaurant,
     name: '',
   }
 

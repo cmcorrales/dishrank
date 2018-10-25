@@ -63,6 +63,8 @@ export function dishes(state = [], action) {
     switch (action.type) {
         case 'DISHES_FETCH_DATA_SUCCESS':
             return action.dishes;
+        case "ADD_DISH_SUCCESS":
+            return [...state, action.payload]
         default:
             return state;
     }
@@ -201,13 +203,13 @@ export function dishesReducer(state = initialDishState, action) {
         ...state,
         loading: true
       };
-    case 'ADD_DISH_SUCCESS':
+    /*case 'ADD_DISH_SUCCESS':
       return {
         ...state,
         loading: false,
         error: null,
         dishes: [...state.dishes, action.payload]
-      };
+      };*/
     case 'ADD_DISH_FAILURE':
       return {
         ...state,

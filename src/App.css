@@ -84,3 +84,21 @@ body, html {
 .label-position {
   float: right;
 }
+
+.restaurant-header {
+  padding-bottom:70px;
+}
+
+.reviews-count {
+  float: right;
+}
+
+.rating-container {
+  padding: 10px;
+  padding-right: 90px;
+  padding-bottom: 20px;
+  outline: none;
+}
+.rating-container:focus {
+  outline: none;
+}

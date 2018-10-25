@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import Login from './components/Login';
 import RestaurantList from './components/RestaurantList';
-import RestaurantSearch from './components/RestaurantSearch';
 import NavigationBar from './components/NavigationBar';
 import { Input, Card } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -46,7 +45,6 @@ class App extends Component {
         <div className="hero-image">
           <h1 className="heading">dish•rank</h1>
           <div><Input icon="search" value={this.props.searchTerm} onChange={this.handleInputChange} placeholder="search"/></div>
-
         </div>
         <RestaurantList filteredRestaurants={this.showRestaurants()}/>
       </div>

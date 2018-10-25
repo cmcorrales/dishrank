@@ -19,9 +19,7 @@ class SelectedRestaurant extends React.Component {
   close = () => this.setState({ open: false })
 
   componentDidMount() {
-
     this.props.fetchData('http://localhost:3000/api/v1/dishes');
-
     const dishesArray = this.props.selectedRestaurant.selectedRestaurant.dishes
     console.log(dishesArray)
     const dishes = dishesArray ? dishesArray.map(dish => dish) : null;
@@ -38,6 +36,7 @@ class SelectedRestaurant extends React.Component {
     this.props.onAddRating(rating, dishId)
   }
 
+
   getAverageDishRating = (filteredDishes) => {
     if (filteredDishes === undefined || filteredDishes.length == 0) {
       return "No ratings"
@@ -47,7 +46,18 @@ class SelectedRestaurant extends React.Component {
       const flavorArray = filteredDishes["0"].reviews.map(item => item.rating)
       const filteredFlavorArray = flavorArray.filter(value => value !== null )
       const averageRating = filteredFlavorArray.reduce((a, b) => a + b, 0) / (filteredFlavorArray.length||1)
-      return averageRating !== 0? averageRating.toFixed(2) : "No ratings"
+      if (averageRating === 0) {
+        let roundedRating = "No ratings"
+        return roundedRating
+      }
+      else if (averageRating.toString().length === 1) {
+        let roundedRating = averageRating
+        return roundedRating
+      }
+      else {
+        let roundedRating = averageRating.toFixed(2)
+        return roundedRating
+      }
     }
 }
 
@@ -94,13 +104,12 @@ class SelectedRestaurant extends React.Component {
   }
 
   render() {
-    // console.log("filtered dishes:",this.filteredDishes())
-    console.log(this.props)
+    console.log("filtered dishes:",this.filteredDishes())
     return (
       <React.Fragment>
         <NavigationBar />
         <div className="menuItems">
-          {/* <h1 className="heading">{this.props.selectedRestaurant.selectedRestaurant.name}</h1> */}
+          <h1 className="heading">{this.props.selectedRestaurant.selectedRestaurant.name}</h1>
           { this.checkDishes(this.state.dishes) }
           <AddDish />
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Input, Button, Grid, Card } from 'semantic-ui-react';
+import { Input, Button, Grid, Card, Popup } from 'semantic-ui-react';
 import { addRestaurant } from '../actions/restaurants';
 import NavigationBar from './NavigationBar'
 
@@ -39,7 +39,7 @@ class AddRestaurant extends React.Component {
               </Grid.Row> */}
 
               <Grid.Row>
-                <Button fluid primary>Add Restaurant</Button>
+                <Popup trigger=<Button fluid primary>Add Restaurant</Button> content='Restaurant successfully added.' on='click' position='bottom center'/>
               </Grid.Row>
               </Grid>
             </form>

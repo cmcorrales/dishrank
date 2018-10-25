@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Segment, Rating, Button, Icon, Label, Modal, Dropdown, Menu, Statistic, Header } from 'semantic-ui-react';
+import { Segment, Rating, Button, Icon, Label, Modal, Dropdown, Menu, Statistic, Header, Popup } from 'semantic-ui-react';
 import { addRating } from '../actions/restaurants';
 import NavigationBar from './NavigationBar'
 import GiveFeedbackModal from './GiveFeedbackModal';
@@ -83,9 +83,9 @@ class SelectedRestaurant extends React.Component {
                 {this.getAverageDishRating(this.filteredDishes(dish.id))} <Icon name='star' />
               </Label>
               <span><Header as='h2'>{dish.name}</Header></span><br/>
-              <div className='rating-container'><Rating icon='star' defaultRating={0} maxRating={5} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} /></div><br/>
-              <Button onClick={this.show('blurring', dish.name, dish.id)} color='red'>give feedback</Button>
-              <Modal trigger={<Button color='blue'>view feedback</Button>}>
+              <div className='rating-container'><Popup trigger={<Rating icon='star' defaultRating={0} maxRating={5} size='massive' onRate={(e, {rating}) => this.handleRate(e, rating, dish.id, dish.name)} />} content='Rating added!' position='right center' on='click' /></div><br/>
+              <Button onClick={this.show('blurring', dish.name, dish.id)} color='pink'>give feedback</Button>
+              <Modal trigger={<Button color='teal'>view feedback</Button>}>
                 <ViewFeedbackModal filteredDishes={this.filteredDishes(dish.id)} dishName={dish.name}/>
               </Modal>
               <div class='reviews-count'>
@@ -146,6 +146,9 @@ class SelectedRestaurant extends React.Component {
   sortBy = (event) => {
     if (event.target.value === 'alphabetical') {
       return this.sortByAlphabetical()
+    }
+    if (event.target.value === 'rating') {
+      return this.sortByRating()
     }
   }
 

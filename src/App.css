@@ -102,3 +102,11 @@ body, html {
 .rating-container:focus {
   outline: none;
 }
+.add-restaurant{
+  padding: 300px 400px 400px 800px;
+  background-image: url('https://images.pexels.com/photos/326281/pexels-photo-326281.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}

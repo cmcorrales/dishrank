@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import history from '../history';
 import Restaurant from './Restaurant';
-import SelectedRestaurant from './SelectedRestaurant';
 
 class RestaurantList extends Component {
 

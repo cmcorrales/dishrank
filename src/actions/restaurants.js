@@ -94,7 +94,7 @@ export function dishesFetchData(url) {
     };
 }
 
-export const addRating = (rating, dish_id) => {
+export const addRating = (rating, dish_id, city, neighborhood, feature_image) => {
   return dispatch => {
     console.log( "addRating action called")
     dispatch(addRatingStarted());
@@ -183,7 +183,7 @@ const addRatingFailure = error => ({
   }
 });
 
-export const addRestaurant = (name) => {
+export const addRestaurant = (name, city, neighborhood, feature_image) => {
   return dispatch => {
     console.log( "addRestaurant action called")
     dispatch(addRestaurantStarted());
@@ -191,6 +191,9 @@ export const addRestaurant = (name) => {
     axios
       .post(`http://localhost:3000/api/v1/restaurants/`, {
         name,
+        city,
+        neighborhood,
+        feature_image,
         completed: false
       })
       .then(res => {
@@ -247,16 +250,6 @@ const addDishSuccess = dish => ({
   }
 });
 
-const addDishStarted = () => ({
-  type: 'ADD_DISH_STARTED'
-});
-
-const addDishFailure = error => ({
-  type: 'ADD_DISH_FAILURE',
-  payload: {
-    error
-  }
-});
 
 export const SEARCH = 'SEARCH';
 

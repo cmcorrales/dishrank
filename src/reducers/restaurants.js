@@ -223,10 +223,10 @@ export function dishesReducer(state = initialDishState, action) {
 
 
 
-const initialSearchState = {
-  restaurants: [],
-  value: '',
-};
+// const initialSearchState = {
+//   restaurants: [],
+//   value: '',
+// };
 
 // export function searchReducer(state = initialSearchState, action) {
 //   switch(action.type) {

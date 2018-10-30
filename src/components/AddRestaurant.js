@@ -7,7 +7,9 @@ import NavigationBar from './NavigationBar'
 class AddRestaurant extends React.Component {
   state = {
     name: '',
-    // imageUrl: '',
+    city: '',
+    neighborhood: '',
+    feature_image: '',
   }
 
   handleOnChange = (event) => {
@@ -26,34 +28,33 @@ class AddRestaurant extends React.Component {
     return(
       <React.Fragment>
         <NavigationBar />
+        <div class="add-restaurant">
         <Card centered>
           <Card.Content>
-          <form onSubmit={(event)=>{event.preventDefault();this.props.onAddRestaurant(this.state.name)}}>
+          <form onSubmit={(event)=>{event.preventDefault();this.props.onAddRestaurant(this.state.name, this.state.city, this.state.neighborhood, this.state.feature_image)}}>
             <Grid centered columns={4}>
               <Grid.Row>
                 <Input type="text" name="name"  onChange={this.handleOnChange} placeholder="restaurant name" />
               </Grid.Row>
 
-              {/* <Grid.Row>
-                <Input type="text" name="imageUrl" onChange={this.handleOnChange} placeholder="restaurant image URL" />
-              </Grid.Row> */}
 
               <Grid.Row>
-                <Popup trigger=<Button fluid primary>Add Restaurant</Button> content='Restaurant successfully added.' on='click' position='bottom center'/>
+                <Popup trigger={<Button fluid primary>Add Restaurant</Button>} content='Restaurant successfully added.' on='click' position='bottom center' />
               </Grid.Row>
               </Grid>
             </form>
           </Card.Content>
         </Card>
-      </React.Fragment>
+    </div>
+  </React.Fragment>
     )
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddRestaurant: (name) => {
-      dispatch(addRestaurant(name))
+    onAddRestaurant: (name, city, neighborhood, feature_image) => {
+      dispatch(addRestaurant(name, city, neighborhood, feature_image))
     }
   }
 }

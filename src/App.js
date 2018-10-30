@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-// import Login from './components/Login';
 import RestaurantList from './components/RestaurantList';
 import NavigationBar from './components/NavigationBar';
-import { Input, Card } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { restaurantsFetchData } from './actions/restaurants';
 

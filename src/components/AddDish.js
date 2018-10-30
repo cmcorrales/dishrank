@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button, Grid, Card } from 'semantic-ui-react';
 import { addDish } from '../actions/restaurants';
-import NavigationBar from './NavigationBar'
 
 class AddDish extends React.Component {
   state = {

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Header, Image, Modal, Divider, Segment } from 'semantic-ui-react';
-import { addReview } from '../actions/restaurants';
-import { dishesFetchData } from '../actions/restaurants';
+import { Button, Modal } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import Chart from "react-apexcharts";
 
@@ -22,7 +20,7 @@ class ViewFeedbackModal extends Component {
             plotOptions: {
                 bar: {
                     horizontal: true,
-                    barHeight: '100%',
+                    barHeight: '80%',
 
                 },
             },
@@ -88,12 +86,12 @@ class ViewFeedbackModal extends Component {
 
   show = (dimmer, dishName) => () => this.setState({ dimmer, open: true });
 
-// bearros code
+
   // data.map(obj => obj.reviews).forEach(x => x.length > 0 ? x.forEach(r => console.log(r.rating)) : 'empty array')
 
 
   moreSaltyPercent = () => {
-    if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+    if (this.props.filteredDishes === undefined || this.props.filteredDishes.length === 0) {
       return "No ratings"
     }
     else {
@@ -108,7 +106,7 @@ class ViewFeedbackModal extends Component {
 }
 
 lessSaltyPercent = () => {
-  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length === 0) {
     return "No ratings"
   }
   else {
@@ -123,7 +121,7 @@ lessSaltyPercent = () => {
 }
 
 moreSpicyPercent = () => {
-  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length === 0) {
     return "No ratings"
   }
   else {
@@ -138,7 +136,7 @@ moreSpicyPercent = () => {
 }
 
 lessSpicyPercent = () => {
-  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length === 0) {
     return "No ratings"
   }
   else {
@@ -153,7 +151,7 @@ lessSpicyPercent = () => {
 }
 
 moreSweetPercent = () => {
-  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length === 0) {
     return "No ratings"
   }
   else {
@@ -168,7 +166,7 @@ moreSweetPercent = () => {
 }
 
 lessSweetPercent = () => {
-  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length === 0) {
     return "No ratings"
   }
   else {
@@ -183,7 +181,7 @@ lessSweetPercent = () => {
 }
 
 morePortionPercent = () => {
-  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length === 0) {
     return "No ratings"
   }
   else {
@@ -198,7 +196,7 @@ morePortionPercent = () => {
 }
 
 lessPortionPercent = () => {
-  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length == 0) {
+  if (this.props.filteredDishes === undefined || this.props.filteredDishes.length === 0) {
     return "No ratings"
   }
   else {

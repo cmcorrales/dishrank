@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Segment, Rating, Button, Icon, Label, Modal, Dropdown, Menu, Statistic, Header, Popup } from 'semantic-ui-react';
+import { Segment, Rating, Button, Icon, Label, Modal, Statistic, Header, Popup } from 'semantic-ui-react';
 import { addRating } from '../actions/restaurants';
 import NavigationBar from './NavigationBar'
 import GiveFeedbackModal from './GiveFeedbackModal';
@@ -17,17 +17,15 @@ class SelectedRestaurant extends React.Component {
     type: '',
   }
 
+  componentWillReceiveProps(props){
+    this.setState({dishes:props.dishes})
+  }
+
   show = (dimmer, dishName, dishId) => () => this.setState({ dimmer, open: true, dishName: dishName, dishId: dishId })
   close = () => this.setState({ open: false })
 
   componentDidMount() {
     this.props.fetchData('http://localhost:3000/api/v1/dishes');
-    const dishesArray = this.props.selectedRestaurant.selectedRestaurant.dishes
-    console.log(dishesArray)
-    const dishes = dishesArray ? dishesArray.map(dish => dish) : null;
-    this.setState({
-      dishes: dishes,
-    })
   }
 
   handleRate = (e, rating, dishId) => {
@@ -39,11 +37,9 @@ class SelectedRestaurant extends React.Component {
   }
 
   getReviewCount = (filteredDishes) => {
-    if (filteredDishes === undefined || filteredDishes.length == 0) {
+    if (filteredDishes === undefined || filteredDishes.length === 0) {
       return "No ratings"
-      //this return the message above and an empty array? multiple times
     } else {
-      //console.log("The array has something in it! Result is: " + this.props.filteredDishes["0"])
       const flavorArray = filteredDishes["0"].reviews.map(item => item.rating)
       const filteredFlavorArray = flavorArray.filter(value => value !== null )
       return filteredFlavorArray.length
@@ -52,7 +48,7 @@ class SelectedRestaurant extends React.Component {
 
 
   getAverageDishRating = (filteredDishes) => {
-    if (filteredDishes === undefined || filteredDishes.length == 0) {
+    if (filteredDishes === undefined || filteredDishes.length === 0) {
       return "No ratings"
     } else {
       const flavorArray = filteredDishes["0"].reviews.map(item => item.rating)
@@ -73,8 +69,11 @@ class SelectedRestaurant extends React.Component {
     }
 }
 
-  displayDishes = (dishes) => {
+  displayDishes = (_dishes) => {
     const { open, dimmer } = this.state
+    const id = this.props.selectedRestaurant.selectedRestaurant.id
+    //debugger
+    const dishes = this.state.dishes.filter(dish => dish.restaurant.id === id)
     return dishes.map(dish => {
       return (
         <div>
@@ -116,7 +115,9 @@ class SelectedRestaurant extends React.Component {
   }
 
   filteredDishes = (dishId) => {
-    return this.props.dishes.filter(dish => dish.id === dishId)
+    const id = this.props.selectedRestaurant.selectedRestaurant.id
+    console.log("filteredDishes ", id , this.props.dishes)
+    return this.props.dishes.filter(dish => dish.id === dishId && dish.restaurant.id === id)
   }
 
   onChangeType = (event) => {
@@ -155,7 +156,6 @@ class SelectedRestaurant extends React.Component {
   sortByAlphabetical = () => {
     this.setState((prevState) => {
       const sortedDishes = prevState.dishes.sort((dish1, dish2) => {
-        let name2;
         if (dish1.name && dish2.name) {
           const name1 = dish1.name;
           const name2 = dish2.name;
@@ -171,11 +171,6 @@ class SelectedRestaurant extends React.Component {
   }
 
   render() {
-    const options = [
-      { key: 1, text: 'rating', value: 1 },
-      { key: 2, text: 'popularity', value: 2 },
-      { key: 3, text: 'alphabetical', value: 3 },
-    ]
     console.log("dishes:", this.props.dishes)
     console.log("filtered dishes:",this.filteredDishes())
     return (
